@@ -22,5 +22,11 @@
         <action name="donor" class="com.rednet.actions.DonorDetailAction" method="execute">
             <result type="json"/>
         </action>
+        <action name="societyAdmins" class="com.rednet.actions.SocietyAdminsAction" method="execute">
+            <result type="json"/>
+        </action>
+        <action name="societyAdmin" class="com.rednet.actions.SocietyAdminDetailAction" method="execute">
+            <result type="json"/>
+        </action>
     </package>
 </struts>

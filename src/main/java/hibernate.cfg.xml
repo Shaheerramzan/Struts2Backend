@@ -8,6 +8,7 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <mapping class="com.rednet.entities.Person"/>
         <mapping class="com.rednet.entities.Donor"/>
+        <mapping class="com.rednet.entities.SocietyAdmin"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

@@ -211,9 +211,7 @@ public class Person {
         if (phone3 != null ? !phone3.equals(person.phone3) : person.phone3 != null) return false;
         if (createdOn != null ? !createdOn.equals(person.createdOn) : person.createdOn != null) return false;
         if (city != null ? !city.equals(person.city) : person.city != null) return false;
-        if (area != null ? !area.equals(person.area) : person.area != null) return false;
-
-        return true;
+        return area != null ? area.equals(person.area) : person.area == null;
     }
 
     @Override

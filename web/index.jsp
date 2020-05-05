@@ -12,7 +12,7 @@
   </head>
   <body>
   <h1>Hello World From Struts2</h1>
-  <form action = "donor.action" method="post">
+  <form action = "societyAdmin.action" method="post">
     <label>
       Id <br/>
       <input type = "number" name = "Id"/>
