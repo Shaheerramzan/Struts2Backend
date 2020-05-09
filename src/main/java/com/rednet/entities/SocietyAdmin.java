@@ -3,7 +3,7 @@ package com.rednet.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "society_admin", schema = "rednet", catalog = "")
+@Table(name = "society_admin", schema = "rednet")
 public class SocietyAdmin {
     private int societyAdminId;
     private Person PersonId;

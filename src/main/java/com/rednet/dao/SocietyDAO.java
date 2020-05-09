@@ -1,7 +1,7 @@
 package com.rednet.dao;
 
 import com.rednet.entities.Person;
-import com.rednet.entities.SocietyAdmin;
+import com.rednet.entities.Society;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,60 +17,53 @@ public class SocietyDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "root");
     }
-    public ArrayList<SocietyAdmin> getSocietySocietyAdmins(int society_id) throws SQLException, ClassNotFoundException {
-        ArrayList<SocietyAdmin> societyAdmins = new ArrayList<SocietyAdmin>();
-        String sql = "SELECT * FROM society_admin s, person p WHERE s.person_id=p.person_id AND society_id = ?";
+
+    private void fillFields(ResultSet resultSet, Society society, Person person) throws SQLException {
+        person.setPersonId(resultSet.getInt("p.person_id"));
+        person.setUsername(resultSet.getString("username"));
+        person.setFirstName(resultSet.getString("first_name"));
+        person.setLastName(resultSet.getString("last_name"));
+        person.setEmail(resultSet.getString("email"));
+        person.setGender(resultSet.getString("gender"));
+        person.setBloodGroup(resultSet.getString("blood_group"));
+        person.setLatitude(resultSet.getDouble("latitude"));
+        person.setLongitude(resultSet.getDouble("longitude"));
+        person.setPhone1(resultSet.getString("phone1"));
+        person.setCity(resultSet.getString("city"));
+        person.setArea(resultSet.getString("area"));
+        society.setPersonId(person);
+        society.setName(resultSet.getString("name"));
+        society.setSocietyId(resultSet.getInt("society_id"));
+    }
+
+    public ArrayList<Society> getSocieties() throws SQLException, ClassNotFoundException {
+        ArrayList<Society> Societies = new ArrayList<Society>();
+        String sql = "SELECT * FROM society s, person p where s.head_id = p.person_id";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, society_id);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next())
         {
-            SocietyAdmin societyAdmin = new SocietyAdmin();
+            Society Society = new Society();
             Person person = new Person();
-            person.setPersonId(resultSet.getInt("p.person_id"));
-            person.setUsername(resultSet.getString("username"));
-            person.setFirstName(resultSet.getString("first_name"));
-            person.setLastName(resultSet.getString("last_name"));
-            person.setEmail(resultSet.getString("email"));
-            person.setGender(resultSet.getString("gender"));
-            person.setBloodGroup(resultSet.getString("blood_group"));
-            person.setLatitude(resultSet.getDouble("latitude"));
-            person.setLongitude(resultSet.getDouble("longitude"));
-            person.setPhone1(resultSet.getString("phone1"));
-            person.setCity(resultSet.getString("city"));
-            person.setArea(resultSet.getString("area"));
-            societyAdmin.setPersonId(person);
-            societyAdmin.setSocietyAdminId(resultSet.getInt("society_admin_id"));
-            societyAdmins.add(societyAdmin);
+            fillFields(resultSet, Society, person);
+            Societies.add(Society);
         }
-        return societyAdmins;
+        return Societies;
     }
-    public SocietyAdmin getSocietyAdmin(int id) throws SQLException, ClassNotFoundException {
-        SocietyAdmin societyAdmin = new SocietyAdmin();
+
+    public Society getSociety(int id) throws SQLException, ClassNotFoundException {
+        Society Society = new Society();
         Person person = new Person();
-        String sql = "SELECT * FROM society_admin d, person p WHERE d.person_id = p.person_id AND society_admin_id = ?";
+        String sql = "SELECT * FROM society s, person p where s.head_id = p.person_id AND society_id = ?";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next())
         {
-            person.setPersonId(resultSet.getInt("p.person_id"));
-            person.setUsername(resultSet.getString("username"));
-            person.setFirstName(resultSet.getString("first_name"));
-            person.setLastName(resultSet.getString("last_name"));
-            person.setEmail(resultSet.getString("email"));
-            person.setGender(resultSet.getString("gender"));
-            person.setBloodGroup(resultSet.getString("blood_group"));
-            person.setLatitude(resultSet.getDouble("latitude"));
-            person.setLongitude(resultSet.getDouble("longitude"));
-            person.setPhone1(resultSet.getString("phone1"));
-            person.setCity(resultSet.getString("city"));
-            person.setArea(resultSet.getString("area"));
-            societyAdmin.setPersonId(person);
-            societyAdmin.setSocietyAdminId(resultSet.getInt("society_admin_id"));
+            fillFields(resultSet, Society, person);
         }
-        return societyAdmin;
+        return Society;
     }
 }

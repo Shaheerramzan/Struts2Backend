@@ -1,13 +1,13 @@
 package com.rednet.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.rednet.dao.SocietyAdminDAO;
-import com.rednet.entities.SocietyAdmin;
+import com.rednet.dao.SocietyDAO;
+import com.rednet.entities.Society;
 
 import java.util.ArrayList;
 
 public class SocietiesAction extends ActionSupport {
-    public ArrayList<SocietyAdmin> societyAdmins;
+    public ArrayList<Society> societies;
     public Integer Id;
 
     @Override
@@ -15,8 +15,8 @@ public class SocietiesAction extends ActionSupport {
         String result = ERROR;
 
         try{
-            SocietyAdminDAO societyAdminDAO = new SocietyAdminDAO();
-            societyAdmins = societyAdminDAO.getSocietySocietyAdmins(Id);
+            SocietyDAO societyAdminDAO = new SocietyDAO();
+            societies = societyAdminDAO.getSocieties();
             result = SUCCESS;
         }
         catch (Exception exception)
@@ -27,12 +27,12 @@ public class SocietiesAction extends ActionSupport {
         return result;
     }
 
-    public ArrayList<SocietyAdmin> getSocietyAdmins() {
-        return societyAdmins;
+    public ArrayList<Society> getSocieties() {
+        return societies;
     }
 
-    public void setSocietyAdmins(ArrayList<SocietyAdmin> societyAdmins) {
-        this.societyAdmins = societyAdmins;
+    public void setSocieties(ArrayList<Society> societies) {
+        this.societies = societies;
     }
 
     public Integer getId() {

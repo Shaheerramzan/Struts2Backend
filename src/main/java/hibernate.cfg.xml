@@ -9,6 +9,8 @@
         <mapping class="com.rednet.entities.Person"/>
         <mapping class="com.rednet.entities.Donor"/>
         <mapping class="com.rednet.entities.SocietyAdmin"/>
+        <mapping class="com.rednet.entities.Society"/>
+        <mapping class="com.rednet.entities.SocietyRequest"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

@@ -31,5 +31,11 @@
         <action name="societyAdmin" class="com.rednet.actions.SocietyAdminDetailAction" method="execute">
             <result type="json"/>
         </action>
+        <action name="societies" class="com.rednet.actions.SocietiesAction" method="execute">
+            <result type="json"/>
+        </action>
+        <action name="society" class="com.rednet.actions.SocietyDetailAction" method="execute">
+            <result type="json"/>
+        </action>
     </package>
 </struts>
