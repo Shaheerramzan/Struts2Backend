@@ -58,6 +58,16 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/rednet</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="6639ff11-6626-438b-a7ad-42fa5af2894e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/RedNet/Struts2Backend/src/main/java/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/rednet</jdbc-url>
+    </data-source>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
@@ -231,10 +241,14 @@
     </remote-repository>
   </component>
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/main/java/com/rednet/actions/ActionClass.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/rednet/actions/LoginAction.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/rednet/dao/DonorDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/rednet/dao/SocietyAdminDAO.java" dialect="GenericSQL" />
     <file url="PROJECT" dialect="MySQL" />
+  </component>
+  <component name="TemplateDataLanguageMappings">
+    <file url="file://$PROJECT_DIR$/web/index.jsp" dialect="HTML" />
+    <file url="PROJECT" dialect="JAVA" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
@@ -247,6 +261,19 @@
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="6639ff11-6626-438b-a7ad-42fa5af2894e">
+      <database-info product="MySQL" version="8.0.20" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.20" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>

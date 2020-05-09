@@ -7,7 +7,10 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     <package name="Struts2" namespace="/" extends="struts-default, json-default">
-        <action name="login" class="com.rednet.actions.ActionClass" method="execute">
+        <action name="login" class="com.rednet.actions.LoginAction" method="execute">
+            <result type="json"/>
+        </action>
+        <action name="logout" class="com.rednet.actions.LoginAction" method="logout">
             <result type="json"/>
         </action>
         <action name="create" class="com.rednet.actions.CreateAction" method="execute">

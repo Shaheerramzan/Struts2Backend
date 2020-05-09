@@ -12,10 +12,10 @@
   </head>
   <body>
   <h1>Hello World From Struts2</h1>
-  <form action = "societyAdmin.action" method="post">
+  <form action = "login.action" method="post">
     <label>
       Id <br/>
-      <input type = "number" name = "Id"/>
+      <input type = "text" name = "Username"/>
     </label><br/>
     <label>
     password <br/>

@@ -1,10 +1,12 @@
 package com.rednet.dao;
 
 import com.rednet.entities.Person;
+import com.rednet.entities.SocietyAdmin;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-public class PersonDAO {
+public class SocietyDAO {
     public Connection connection;
 
     public void createConnection() throws SQLException, ClassNotFoundException {
@@ -15,56 +17,18 @@ public class PersonDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "root");
     }
-    public Person getPerson(int id) throws SQLException, ClassNotFoundException {
-        Person person = new Person();
-        String sql = "SELECT * FROM person WHERE person_id = ?";
+    public ArrayList<SocietyAdmin> getSocietySocietyAdmins(int society_id) throws SQLException, ClassNotFoundException {
+        ArrayList<SocietyAdmin> societyAdmins = new ArrayList<SocietyAdmin>();
+        String sql = "SELECT * FROM society_admin s, person p WHERE s.person_id=p.person_id AND society_id = ?";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, society_id);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next())
         {
-            person.setPersonId(resultSet.getInt("person_id"));
-            person.setUsername(resultSet.getString("username"));
-            person.setFirstName(resultSet.getString("last_name"));
-            person.setLastName(resultSet.getString("first_name"));
-            person.setEmail(resultSet.getString("email"));
-            person.setGender(resultSet.getString("gender"));
-            person.setBloodGroup(resultSet.getString("blood_group"));
-            person.setLatitude(resultSet.getDouble("latitude"));
-            person.setLongitude(resultSet.getDouble("longitude"));
-            person.setPhone1(resultSet.getString("phone1"));
-            person.setCity(resultSet.getString("city"));
-            person.setArea(resultSet.getString("area"));
-        }
-        return person;
-    }
-    public Person personAuthentication(String email, String password, int Role) throws SQLException, ClassNotFoundException {
-        Person person = new Person();
-        String sql;
-        switch(Role)
-        {
-            case 1:
-                sql = "SELECT * FROM person p, society_admin s WHERE p.person_id = s.person_id AND p.username = ? AND p.password = ?";
-                break;
-            case 2:
-                sql = "SELECT * FROM person p, rednet.society s WHERE p.person_id = s.head_id AND p.username = ? AND p.password = ?";
-                break;
-            case 3:
-                sql = "SELECT * FROM person p, super_admin s WHERE p.person_id = s.person_id AND p.username = ? AND p.password = ?";
-                break;
-            default:
-                sql = "";
-        }
-
-        createConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, email);
-        preparedStatement.setString(2, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next())
-        {
-            person.setPersonId(resultSet.getInt("person_id"));
+            SocietyAdmin societyAdmin = new SocietyAdmin();
+            Person person = new Person();
+            person.setPersonId(resultSet.getInt("p.person_id"));
             person.setUsername(resultSet.getString("username"));
             person.setFirstName(resultSet.getString("first_name"));
             person.setLastName(resultSet.getString("last_name"));
@@ -76,7 +40,37 @@ public class PersonDAO {
             person.setPhone1(resultSet.getString("phone1"));
             person.setCity(resultSet.getString("city"));
             person.setArea(resultSet.getString("area"));
+            societyAdmin.setPersonId(person);
+            societyAdmin.setSocietyAdminId(resultSet.getInt("society_admin_id"));
+            societyAdmins.add(societyAdmin);
         }
-        return person;
+        return societyAdmins;
+    }
+    public SocietyAdmin getSocietyAdmin(int id) throws SQLException, ClassNotFoundException {
+        SocietyAdmin societyAdmin = new SocietyAdmin();
+        Person person = new Person();
+        String sql = "SELECT * FROM society_admin d, person p WHERE d.person_id = p.person_id AND society_admin_id = ?";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+        {
+            person.setPersonId(resultSet.getInt("p.person_id"));
+            person.setUsername(resultSet.getString("username"));
+            person.setFirstName(resultSet.getString("first_name"));
+            person.setLastName(resultSet.getString("last_name"));
+            person.setEmail(resultSet.getString("email"));
+            person.setGender(resultSet.getString("gender"));
+            person.setBloodGroup(resultSet.getString("blood_group"));
+            person.setLatitude(resultSet.getDouble("latitude"));
+            person.setLongitude(resultSet.getDouble("longitude"));
+            person.setPhone1(resultSet.getString("phone1"));
+            person.setCity(resultSet.getString("city"));
+            person.setArea(resultSet.getString("area"));
+            societyAdmin.setPersonId(person);
+            societyAdmin.setSocietyAdminId(resultSet.getInt("society_admin_id"));
+        }
+        return societyAdmin;
     }
 }
