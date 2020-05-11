@@ -12,15 +12,16 @@
   </head>
   <body>
   <h1>Hello World From Struts2</h1>
-  <form action = "login.action" method="get">
+  <form action = "login.action" method="post">
     <label>
-      name <br/>
-      <input type = "text" name = "name"/>
-    </label><label>
+      Id <br/>
+      <input type = "text" name = "Username"/>
+    </label><br/>
+    <label>
     password <br/>
-    <input type = "text" name = "password"/>
+    <input type = "password" name = "password"/>
   </label>
-
-    <input type = "submit" value = "Say Hello"/>
+  <br/>
+    <input type = "submit" value = "Login"/>
   </body>
 </html>
