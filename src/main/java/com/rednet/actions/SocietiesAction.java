@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class SocietiesAction extends ActionSupport {
     public ArrayList<Society> societies;
-    public Integer Id;
 
     @Override
     public String execute() throws Exception {
@@ -33,13 +32,5 @@ public class SocietiesAction extends ActionSupport {
 
     public void setSocieties(ArrayList<Society> societies) {
         this.societies = societies;
-    }
-
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
     }
 }

@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="Struts2Backend:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Struts2Backend_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Struts2Backend/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Struts2Backend" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-fileupload-1.4" />
+          <element id="library" level="project" name="Hibernate 5.4.11-5.4.11" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

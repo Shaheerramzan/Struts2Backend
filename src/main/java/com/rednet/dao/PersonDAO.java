@@ -3,6 +3,7 @@ package com.rednet.dao;
 import com.rednet.entities.Person;
 
 import java.sql.*;
+import java.util.Map;
 
 public class PersonDAO {
     public Connection connection;
@@ -39,7 +40,8 @@ public class PersonDAO {
         }
         return person;
     }
-    public Person personAuthentication(String email, String password, int Role) throws SQLException, ClassNotFoundException {
+    public Person
+    personAuthentication(String email, String password, int Role) throws SQLException, ClassNotFoundException {
         Person person = new Person();
         String sql;
         switch(Role)
@@ -56,7 +58,6 @@ public class PersonDAO {
             default:
                 sql = "";
         }
-
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, email);

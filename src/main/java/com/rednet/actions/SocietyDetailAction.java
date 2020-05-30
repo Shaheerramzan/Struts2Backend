@@ -6,14 +6,14 @@ import com.rednet.entities.Society;
 
 public class SocietyDetailAction extends ActionSupport {
     private int Id;
-    private Society societyAdmin;
+    private Society society;
     @Override
     public String execute() throws Exception {
         String result = ERROR;
 
         try{
             SocietyDAO societyDAO = new SocietyDAO();
-            societyAdmin = societyDAO.getSociety(Id);
+            society = societyDAO.getSociety(Id);
             result = SUCCESS;
         }
         catch (Exception exception)
@@ -32,11 +32,11 @@ public class SocietyDetailAction extends ActionSupport {
         return Id;
     }
 
-    public void setSocietyAdmin(Society societyAdmin) {
-        this.societyAdmin = societyAdmin;
+    public void setSociety(Society society) {
+        this.society = society;
     }
 
-    public Society getSocietyAdmin() {
-        return societyAdmin;
+    public Society getSociety() {
+        return society;
     }
 }

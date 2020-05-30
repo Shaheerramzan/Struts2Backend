@@ -21,7 +21,11 @@
     <input type = "password" name = "password"/>
     </label>
     <br/>
-    <input type = "submit" value = "Login"/>
+      <label>
+        Role<br/>
+        <input type="number" value="1" name="Role"/>
+      </label>
+      <input type = "submit" value = "Login"/>
     </form>
   </body>
 </html>

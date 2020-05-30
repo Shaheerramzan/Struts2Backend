@@ -2,7 +2,9 @@ package com.rednet.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rednet.dao.PersonDAO;
+import com.rednet.dao.SocietyAdminDAO;
 import com.rednet.entities.Person;
+import com.rednet.entities.SocietyAdmin;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
@@ -18,11 +20,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private int Role;
     private SessionMap<String, Object> sessionMap;
     private String JSessionId;
+    private int societyId;
     private Person person = null;
 
 
     public void setSession(Map<String, Object> session) {
-        sessionMap= (SessionMap<String, Object>) session;
+        sessionMap = (SessionMap<String, Object>) session;
     }
 
     public String execute() throws SQLException, ClassNotFoundException {
@@ -31,6 +34,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
         person = personDAO.personAuthentication(Username, Password, Role);
         if(person.getPersonId() != null)
         {
+            if(Role == 1)
+            {
+                SocietyAdminDAO societyAdminDAO = new SocietyAdminDAO();
+                societyId = societyAdminDAO.getSocietyIdByPersonId(person.getPersonId());
+            }
             if(!sessionMap.containsKey("person")) {
                 JSessionId = session.getId();
                 sessionMap.put("person", person);
@@ -91,4 +99,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public int getSocietyId() {
+        return societyId;
+    }
+
+    public void setSocietyId(int societyId) {
+        this.societyId = societyId;
+    }
 }
+

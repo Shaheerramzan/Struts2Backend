@@ -38,7 +38,7 @@ public class SocietyDAO {
 
     public ArrayList<Society> getSocieties() throws SQLException, ClassNotFoundException {
         ArrayList<Society> Societies = new ArrayList<Society>();
-        String sql = "SELECT * FROM society s, person p where s.head_id = p.person_id";
+        String sql = "SELECT * FROM society s, person p WHERE s.head_id = p.person_id";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -55,7 +55,7 @@ public class SocietyDAO {
     public Society getSociety(int id) throws SQLException, ClassNotFoundException {
         Society Society = new Society();
         Person person = new Person();
-        String sql = "SELECT * FROM society s, person p where s.head_id = p.person_id AND society_id = ?";
+        String sql = "SELECT * FROM society s, person p WHERE s.head_id = p.person_id AND society_id = ?";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);

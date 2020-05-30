@@ -19,7 +19,7 @@ public class SocietyAdminDAO {
     }
     public ArrayList<SocietyAdmin> getSocietySocietyAdmins(int society_id) throws SQLException, ClassNotFoundException {
         ArrayList<SocietyAdmin> societyAdmins = new ArrayList<SocietyAdmin>();
-        String sql = "SELECT * FROM society_admin s, person p WHERE s.person_id=p.person_id AND society_id = ?";
+        String sql = "SELECT * FROM society_admin s, person p, society st WHERE s.person_id=p.person_id AND s.society_id=st.society_id AND head_id = ?";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, society_id);
@@ -72,5 +72,18 @@ public class SocietyAdminDAO {
             societyAdmin.setSocietyAdminId(resultSet.getInt("society_admin_id"));
         }
         return societyAdmin;
+    }
+    public int getSocietyIdByPersonId(int id) throws SQLException, ClassNotFoundException {
+        int societyId = 0;
+        String sql = "SELECT society_id FROM society_admin d, person p WHERE d.person_id = p.person_id AND p.person_id = ?";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+        {
+            societyId = resultSet.getInt("society_id");
+        }
+        return societyId;
     }
 }
