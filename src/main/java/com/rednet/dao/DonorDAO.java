@@ -18,6 +18,17 @@ public class DonorDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "root");
     }
+    public Donor createDonor(Date LastDonatedDate, Person person) throws SQLException, ClassNotFoundException {
+        PersonDAO personDAO = new PersonDAO();
+        personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
+        Donor donor = new Donor();
+        donor.setLastDonatedDate(LastDonatedDate);
+        donor.setPersonId(person);
+        String sql = "INSERT INTO donor(last_donated_date, is_busy, system_mute, society_id, person_id) VALUES (last_donated_date, 0, )";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        return donor;
+    }
     public ArrayList<Donor> getSocietyDonors(int society_id) throws SQLException, ClassNotFoundException {
         ArrayList<Donor> donors = new ArrayList<Donor>();
         String sql = "SELECT * FROM donor d, person p WHERE d.person_id=p.person_id AND society_id = ?";

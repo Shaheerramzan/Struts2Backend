@@ -14,7 +14,8 @@
             <result type="json"/>
         </action>
         <action name="create" class="com.rednet.actions.CreateAction" method="execute">
-            <result type="json"/>
+            <result type="json" name="success"/>
+            <result type="plainText" name="error"/>
         </action>
         <action name="person" class="com.rednet.actions.PersonDetailAction" method="execute">
             <result type="json"/>

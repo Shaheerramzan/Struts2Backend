@@ -16,6 +16,23 @@ public class PersonDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "root");
     }
+    public boolean createPerson( String Username, String FirstName, String LastName, String Password, String Email, String PhoneNumber, String Gender, String City, String Area, String BloodGroup) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO rednet.person(person.username, person.password, person.email, person.first_name, person.last_name, person.gender, person.city, person.area, person.blood_group, person.phone1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, Username);
+        preparedStatement.setString(2, Password);
+        preparedStatement.setString(3, Email);
+        preparedStatement.setString(4, FirstName);
+        preparedStatement.setString(5, LastName);
+        preparedStatement.setString(6, Gender);
+        preparedStatement.setString(7, City);
+        preparedStatement.setString(8, Area);
+        preparedStatement.setString(9, BloodGroup);
+        preparedStatement.setString(10, PhoneNumber);
+        int resultSet = preparedStatement.executeUpdate();
+        return resultSet == 1;
+    }
     public Person getPerson(int id) throws SQLException, ClassNotFoundException {
         Person person = new Person();
         String sql = "SELECT * FROM person WHERE person_id = ?";

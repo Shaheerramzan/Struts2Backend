@@ -1,6 +1,11 @@
 package com.rednet.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.rednet.dao.DonorDAO;
+import com.rednet.entities.Donor;
+import com.rednet.entities.Person;
+import java.sql.Date;
+import java.sql.SQLException;
 
 public class CreateAction extends ActionSupport {
     private String Username;
@@ -13,10 +18,39 @@ public class CreateAction extends ActionSupport {
     private String City;
     private String Area;
     private String BloodGroup;
+    private Date LastDonatedDate;
+    private int Type;
 
-    public String execute(){
+
+    public String execute() throws SQLException, ClassNotFoundException {
         String result = ERROR;
+        Person person = new Person();
+        person.setFirstName(FirstName);
+        person.setLastName(LastName);
+        person.setArea(Area);
+        person.setCity(City);
+        person.setBloodGroup(BloodGroup);
+        person.setCreatedOn(new Date(System.currentTimeMillis()));
+        person.setEmail(Email);
+        person.setPassword(Password);
+        person.setPhone1(PhoneNumber);
+        person.setGender(Gender);
+        person.setUsername(Username);
+        if(Type == 1)
+        {
+            Donor donor = null;
+            DonorDAO donorDAO = new DonorDAO();
+            donor = donorDAO.createDonor(LastDonatedDate, person);
+        }
         return "success";
+    }
+
+    public int getType() {
+        return Type;
+    }
+
+    public void setType(int type) {
+        Type = type;
     }
 
     public String getUsername() {
@@ -97,5 +131,13 @@ public class CreateAction extends ActionSupport {
 
     public void setBloodGroup(String bloodGroup) {
         BloodGroup = bloodGroup;
+    }
+
+    public Date getLastDonatedDate() {
+        return LastDonatedDate;
+    }
+
+    public void setLastDonatedDate(Date lastDonatedDate) {
+        LastDonatedDate = lastDonatedDate;
     }
 }
