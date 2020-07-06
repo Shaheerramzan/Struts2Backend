@@ -11,7 +11,7 @@
   </head>
   <body>
   <h1>Hello World From Struts2</h1>
-    <form action = "login.action" method="post">
+    <form action = "create.action" method="post">
     <label>
       Id <br/>
       <input type = "text" name = "Username"/>
@@ -22,8 +22,8 @@
     </label>
     <br/>
       <label>
-        Role<br/>
-        <input type="number" value="1" name="Role"/>
+        Type<br/>
+        <input type="number" value="1" name="Type"/>
       </label>
       <input type = "submit" value = "Login"/>
     </form>
