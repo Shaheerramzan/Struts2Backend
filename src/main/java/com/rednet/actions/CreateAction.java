@@ -20,6 +20,7 @@ public class CreateAction extends ActionSupport {
     private String BloodGroup;
     private Date LastDonatedDate;
     private int Type;
+    private int SocietyId;
 
 
     public String execute() throws SQLException, ClassNotFoundException {

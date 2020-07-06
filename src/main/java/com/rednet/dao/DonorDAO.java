@@ -20,11 +20,11 @@ public class DonorDAO {
     }
     public Donor createDonor(Date LastDonatedDate, Person person) throws SQLException, ClassNotFoundException {
         PersonDAO personDAO = new PersonDAO();
-        personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
+        int personId = personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
         Donor donor = new Donor();
         donor.setLastDonatedDate(LastDonatedDate);
         donor.setPersonId(person);
-        String sql = "INSERT INTO donor(last_donated_date, is_busy, system_mute, society_id, person_id) VALUES (last_donated_date, 0, )";
+        String sql = "INSERT INTO donor(last_donated_date, is_busy, system_mute, society_id, person_id) VALUES (?, 0, ?, ?, ? )";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         return donor;
