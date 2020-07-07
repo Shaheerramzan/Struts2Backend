@@ -86,4 +86,23 @@ public class SocietyAdminDAO {
         }
         return societyId;
     }
+
+    public boolean createSocietyAdmin(Person person, int societyId) throws SQLException, ClassNotFoundException
+    {
+        PersonDAO personDAO = new PersonDAO();
+        int personId = personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
+
+        String sql = "INSERT INTO society_admin(person_id, society_id) VALUES (?, ?)";
+        createConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, personId);
+        ps.setInt(2, societyId);
+
+        if(ps.executeUpdate() >= 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

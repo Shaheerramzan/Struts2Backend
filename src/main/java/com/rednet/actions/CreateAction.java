@@ -2,6 +2,8 @@ package com.rednet.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rednet.dao.DonorDAO;
+import com.rednet.dao.SocietyAdminDAO;
+import com.rednet.dao.SocietyDAO;
 import com.rednet.entities.Donor;
 import com.rednet.entities.Person;
 import java.sql.Date;
@@ -19,8 +21,13 @@ public class CreateAction extends ActionSupport {
     private String Area;
     private String BloodGroup;
     private Date LastDonatedDate;
+
+    private String SocietyName;
+    private String SocietyDescription;
+
     private int Type;
     private int SocietyId;
+    private int donateMonths;
 
 
     public String execute() throws SQLException, ClassNotFoundException {
@@ -39,11 +46,20 @@ public class CreateAction extends ActionSupport {
         person.setUsername(Username);
         if(Type == 1)
         {
-            Donor donor = null;
             DonorDAO donorDAO = new DonorDAO();
-            donor = donorDAO.createDonor(LastDonatedDate, person);
+            donorDAO.createDonor(LastDonatedDate, donateMonths, person, SocietyId);
         }
-        return "success";
+        else if(Type == 2) //society admin
+        {
+            SocietyAdminDAO societyAdminDAO = new SocietyAdminDAO();
+            societyAdminDAO.createSocietyAdmin(person, SocietyId);
+        }
+        else if(Type == 3) //society
+        {
+            SocietyDAO societyDAO = new SocietyDAO();
+            societyDAO.createSociety(SocietyName, SocietyDescription, person);
+        }
+        return SUCCESS;
     }
 
     public int getType() {
@@ -140,5 +156,37 @@ public class CreateAction extends ActionSupport {
 
     public void setLastDonatedDate(Date lastDonatedDate) {
         LastDonatedDate = lastDonatedDate;
+    }
+
+    public int getSocietyId() {
+        return SocietyId;
+    }
+
+    public void setSocietyId(int societyId) {
+        SocietyId = societyId;
+    }
+
+    public void setDonateMonths(int donateMonths) {
+        this.donateMonths = donateMonths;
+    }
+
+    public int getDonateMonths() {
+        return donateMonths;
+    }
+
+    public String getSocietyName() {
+        return SocietyName;
+    }
+
+    public void setSocietyName(String societyName) {
+        SocietyName = societyName;
+    }
+
+    public String getSocietyDescription() {
+        return SocietyDescription;
+    }
+
+    public void setSocietyDescription(String societyDescription) {
+        SocietyDescription = societyDescription;
     }
 }

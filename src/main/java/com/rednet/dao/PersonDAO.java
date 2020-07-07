@@ -98,4 +98,48 @@ public class PersonDAO {
         }
         return person;
     }
+
+
+    public Person
+    personMobileAuthentication(String phone, String password, int Role) throws SQLException, ClassNotFoundException {
+        Person person = new Person();
+        String sql;
+        switch(Role)
+        {
+            case 1:
+                sql = "SELECT * FROM person p, donor d WHERE p.person_id = d.person_id AND p.phone1 = ? AND p.password = ?";
+                break;
+            case 2:
+                sql = "SELECT * FROM person p, conveyance_provider cp WHERE p.person_id = cp.person_id AND p.phone1 = ? AND p.password = ?";
+                break;
+            case 3:
+                sql = "SELECT * FROM person p, conveyance_provider cp, donor p, WHERE p.person_id = d.person_id AND " +
+                        "p.person_id = cp.person_id AND p.phone1 = ? AND p.password = ?";
+                break;
+            default:
+                sql = "";
+        }
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, phone);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+        {
+            person.setPersonId(resultSet.getInt("person_id"));
+            person.setUsername(resultSet.getString("username"));
+            person.setFirstName(resultSet.getString("first_name"));
+            person.setLastName(resultSet.getString("last_name"));
+            person.setEmail(resultSet.getString("email"));
+            person.setGender(resultSet.getString("gender"));
+            person.setBloodGroup(resultSet.getString("blood_group"));
+            person.setLatitude(resultSet.getDouble("latitude"));
+            person.setLongitude(resultSet.getDouble("longitude"));
+            person.setPhone1(resultSet.getString("phone1"));
+            person.setCity(resultSet.getString("city"));
+            person.setArea(resultSet.getString("area"));
+        }
+        return person;
+    }
+
 }

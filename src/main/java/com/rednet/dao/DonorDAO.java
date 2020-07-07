@@ -2,6 +2,9 @@ package com.rednet.dao;
 
 import com.rednet.entities.Donor;
 import com.rednet.entities.Person;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,17 +21,36 @@ public class DonorDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "root");
     }
-    public Donor createDonor(Date LastDonatedDate, Person person) throws SQLException, ClassNotFoundException {
+
+    public boolean createDonor(Date LastDonatedDate, int donatedMonths, Person person, int societyId) throws SQLException, ClassNotFoundException {
         PersonDAO personDAO = new PersonDAO();
         int personId = personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
-        Donor donor = new Donor();
-        donor.setLastDonatedDate(LastDonatedDate);
-        donor.setPersonId(person);
+        //Donor donor = new Donor();
+        //donor.setLastDonatedDate(LastDonatedDate);
+        //donor.setPersonId(person);
         String sql = "INSERT INTO donor(last_donated_date, is_busy, system_mute, society_id, person_id) VALUES (?, 0, ?, ?, ? )";
         createConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        return donor;
+        preparedStatement.setDate(1, LastDonatedDate);
+        //preparedStatement.setBoolean(2, false);
+
+        if(donatedMonths >= 6)
+        {
+            preparedStatement.setBoolean(2, false);
+        }
+        else {
+            preparedStatement.setBoolean(2, true);
+        }
+        preparedStatement.setInt(3, societyId);
+        preparedStatement.setInt(4, personId);
+
+        if(preparedStatement.executeUpdate() >= 1)
+        {
+            return true;
+        }
+        return false;
     }
+
     public ArrayList<Donor> getSocietyDonors(int society_id) throws SQLException, ClassNotFoundException {
         ArrayList<Donor> donors = new ArrayList<Donor>();
         String sql = "SELECT * FROM donor d, person p WHERE d.person_id=p.person_id AND society_id = ?";
