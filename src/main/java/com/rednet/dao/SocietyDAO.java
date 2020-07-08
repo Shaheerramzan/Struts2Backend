@@ -2,7 +2,9 @@ package com.rednet.dao;
 
 import com.rednet.entities.Person;
 import com.rednet.entities.Society;
+import com.rednet.entities.SocietyRequest;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -67,7 +69,7 @@ public class SocietyDAO {
         return Society;
     }
 
-    public boolean createSociety(String societyName, String societyDescription, Person person) throws SQLException, ClassNotFoundException {
+    public boolean createSocietyRequest(String societyName, String societyDescription, Person person) throws SQLException, ClassNotFoundException {
         PersonDAO personDAO = new PersonDAO();
         int personId = personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
 
@@ -84,4 +86,44 @@ public class SocietyDAO {
         }
         return false;
     }
+
+    public boolean createSociety(String societyName, int personId) throws SQLException, ClassNotFoundException {
+
+        String sql = "INSERT INTO rednet.society(name, head_id) VALUES (?, ?)";
+        createConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, societyName);
+        ps.setInt(2, personId);
+
+        if(ps.executeUpdate() >= 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    public SocietyRequest getSocietyRequestById(int Id) throws SQLException, ClassNotFoundException {
+        String sql = "Select * from society_request where society_request_id = ?";
+        createConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, Id);
+        ResultSet rs =  ps.executeQuery();
+
+        SocietyRequest societyRequest = new SocietyRequest();
+        Person person = new Person();
+
+        if(rs.next())
+        {
+            societyRequest.setName(rs.getString("name"));
+            societyRequest.setDescription(rs.getString("description"));
+            person.setPersonId(rs.getInt("head_id"));
+            societyRequest.setPersonByHeadId(person);
+            return societyRequest;
+        }
+       return null;
+
+    }
+
+
 }

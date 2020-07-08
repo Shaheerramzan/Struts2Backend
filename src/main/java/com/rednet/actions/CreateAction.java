@@ -44,7 +44,7 @@ public class CreateAction extends ActionSupport {
         person.setPhone1(PhoneNumber);
         person.setGender(Gender);
         person.setUsername(Username);
-        if(Type == 1)
+        if(Type == 1) //donor
         {
             DonorDAO donorDAO = new DonorDAO();
             donorDAO.createDonor(LastDonatedDate, donateMonths, person, SocietyId);
@@ -54,10 +54,10 @@ public class CreateAction extends ActionSupport {
             SocietyAdminDAO societyAdminDAO = new SocietyAdminDAO();
             societyAdminDAO.createSocietyAdmin(person, SocietyId);
         }
-        else if(Type == 3) //society
+        else if(Type == 3) //society Request
         {
             SocietyDAO societyDAO = new SocietyDAO();
-            societyDAO.createSociety(SocietyName, SocietyDescription, person);
+            societyDAO.createSocietyRequest(SocietyName, SocietyDescription, person);
         }
         return SUCCESS;
     }
