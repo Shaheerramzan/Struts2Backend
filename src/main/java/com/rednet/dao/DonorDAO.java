@@ -34,21 +34,11 @@ public class DonorDAO {
         preparedStatement.setDate(1, LastDonatedDate);
         //preparedStatement.setBoolean(2, false);
 
-        if(donatedMonths >= 6)
-        {
-            preparedStatement.setBoolean(2, false);
-        }
-        else {
-            preparedStatement.setBoolean(2, true);
-        }
+        preparedStatement.setBoolean(2, donatedMonths < 6);
         preparedStatement.setInt(3, societyId);
         preparedStatement.setInt(4, personId);
 
-        if(preparedStatement.executeUpdate() >= 1)
-        {
-            return true;
-        }
-        return false;
+        return preparedStatement.executeUpdate() >= 1;
     }
 
     public ArrayList<Donor> getSocietyDonors(int society_id) throws SQLException, ClassNotFoundException {

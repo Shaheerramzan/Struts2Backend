@@ -10,6 +10,14 @@
         <action name="login" class="com.rednet.actions.LoginAction" method="execute">
             <result type="json"/>
         </action>
+
+        <!--mobile login mapping-->
+        <action name="mobileLogin" class="com.rednet.actions.LoginAction" method="mobileLogin">
+            <result type="json"/>
+        </action>
+
+
+
         <action name="logout" class="com.rednet.actions.LoginAction" method="logout">
             <result type="json"/>
         </action>
