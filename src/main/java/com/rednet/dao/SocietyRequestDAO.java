@@ -71,7 +71,7 @@ public class SocietyRequestDAO {
 
 
     public SocietyRequest getSocietyRequestById(int Id) throws SQLException, ClassNotFoundException {
-        String sql = "Select * from society_request where society_request_id = ?";
+        String sql = "Select * from society_request sr, person p where sr.head_id = p.person_id and society_request_id = ?";
         createConnection();
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, Id);
@@ -82,10 +82,7 @@ public class SocietyRequestDAO {
 
         if(rs.next())
         {
-            societyRequest.setName(rs.getString("name"));
-            societyRequest.setDescription(rs.getString("description"));
-            person.setPersonId(rs.getInt("head_id"));
-            societyRequest.setPersonByHeadId(person);
+            fillFields(rs, societyRequest, person);
             return societyRequest;
         }
        return null;
