@@ -26,7 +26,10 @@
             <result type="json"/>
         </action>
 
-
+        <!--get society request by id-->
+        <action name="societyRequest" class="com.rednet.actions.SocietyRequestAction" method="SocietyRequest">
+            <result type="json"/>
+        </action>
 
         <action name="logout" class="com.rednet.actions.LoginAction" method="logout">
             <result type="json"/>
