@@ -7,17 +7,18 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     <package name="Struts2" namespace="/" extends="struts-default, json-default">
+
         <action name="login" class="com.rednet.actions.LoginAction" method="execute">
             <result type="json"/>
         </action>
 
         <!--mobile login mapping-->
-        <action name="mobile-login" class="com.rednet.actions.LoginAction" method="mobileLogin">
+        <action name="mobileLogin" class="com.rednet.actions.LoginAction" method="mobileLogin">
             <result type="json"/>
         </action>
 
         <!--create society from request mapping-->
-        <action name="create-society" class="com.rednet.actions.SocietiesAction" method="create_society_from_request">
+        <action name="createSociety" class="com.rednet.actions.SocietiesAction" method="createSocietyFromRequest">
             <result type="json"/>
         </action>
 
@@ -34,28 +35,40 @@
         <action name="logout" class="com.rednet.actions.LoginAction" method="logout">
             <result type="json"/>
         </action>
+
         <action name="create" class="com.rednet.actions.CreateAction" method="execute">
             <result type="json" name="success"/>
             <result type="plainText" name="error"/>
         </action>
+
+        <action name="delete" class="com.rednet.actions.DeleteAction" method="execute">
+            <result type="json"/>
+        </action>
+
         <action name="person" class="com.rednet.actions.PersonDetailAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="societyDonors" class="com.rednet.actions.SocietyDonorsAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="donor" class="com.rednet.actions.DonorDetailAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="societyAdmins" class="com.rednet.actions.SocietyAdminsAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="societyAdmin" class="com.rednet.actions.SocietyAdminDetailAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="societies" class="com.rednet.actions.SocietiesAction" method="execute">
             <result type="json"/>
         </action>
+
         <action name="society" class="com.rednet.actions.SocietyDetailAction" method="execute">
             <result type="json"/>
         </action>

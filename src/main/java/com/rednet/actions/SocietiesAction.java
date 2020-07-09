@@ -30,7 +30,7 @@ public class SocietiesAction extends ActionSupport {
         return result;
     }
 
-    public String create_society_from_request() throws Exception {
+    public String createSocietyFromRequest() throws Exception {
         String result = ERROR;
 
         try{
