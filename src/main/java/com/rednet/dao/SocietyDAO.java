@@ -69,23 +69,7 @@ public class SocietyDAO {
         return Society;
     }
 
-    public boolean createSocietyRequest(String societyName, String societyDescription, Person person) throws SQLException, ClassNotFoundException {
-        PersonDAO personDAO = new PersonDAO();
-        int personId = personDAO.createPerson(person.getUsername(), person.getFirstName(), person.getLastName(), person.getPassword(), person.getEmail(), person.getPhone1(), person.getGender(), person.getCity(), person.getArea(), person.getBloodGroup());
 
-        String sql = "INSERT INTO rednet.society_request(name, description, head_id) VALUES (?, ?, ?)";
-        createConnection();
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, societyName);
-        ps.setString(2, societyDescription);
-        ps.setInt(3, personId);
-
-        if(ps.executeUpdate() >= 1)
-        {
-            return true;
-        }
-        return false;
-    }
 
     public boolean createSociety(String societyName, int personId) throws SQLException, ClassNotFoundException {
 
@@ -103,7 +87,7 @@ public class SocietyDAO {
     }
 
 
-    public SocietyRequest getSocietyRequestById(int Id) throws SQLException, ClassNotFoundException {
+    /*public SocietyRequest getSocietyRequestById(int Id) throws SQLException, ClassNotFoundException {
         String sql = "Select * from society_request where society_request_id = ?";
         createConnection();
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -123,7 +107,7 @@ public class SocietyDAO {
         }
        return null;
 
-    }
+    }*/
 
 
 }

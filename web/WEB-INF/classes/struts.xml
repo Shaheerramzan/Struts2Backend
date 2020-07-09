@@ -16,11 +16,16 @@
             <result type="json"/>
         </action>
 
-
         <!--create society from request mapping-->
         <action name="create-society" class="com.rednet.actions.SocietiesAction" method="create_society_from_request">
             <result type="json"/>
         </action>
+
+        <!--get all society requests-->
+        <action name="societiesRequests" class="com.rednet.actions.SocietyRequestAction" method="execute">
+            <result type="json"/>
+        </action>
+
 
 
         <action name="logout" class="com.rednet.actions.LoginAction" method="logout">

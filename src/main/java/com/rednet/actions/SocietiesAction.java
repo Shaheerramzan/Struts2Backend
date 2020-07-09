@@ -2,6 +2,7 @@ package com.rednet.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rednet.dao.SocietyDAO;
+import com.rednet.dao.SocietyRequestDAO;
 import com.rednet.entities.Society;
 import com.rednet.entities.SocietyRequest;
 
@@ -33,16 +34,17 @@ public class SocietiesAction extends ActionSupport {
         String result = ERROR;
 
         try{
+            SocietyRequestDAO societyRequestDAO = new SocietyRequestDAO();
             SocietyDAO societyDAO = new SocietyDAO();
-            SocietyRequest societyRequest = societyDAO.getSocietyRequestById(SocietyRequestId);
+            SocietyRequest societyRequest = societyRequestDAO.getSocietyRequestById(SocietyRequestId);
             societyDAO.createSociety(societyRequest.getName(), societyRequest.getPersonByHeadId().getPersonId());
             result = SUCCESS;
         }
         catch (Exception exception)
         {
             result = ERROR;
+            exception.printStackTrace();
         }
-
         return result;
     }
 
