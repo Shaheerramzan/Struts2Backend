@@ -103,4 +103,12 @@ public class DonorDAO {
         }
         return donor;
     }
+
+    public boolean deleteDonor(int id) throws SQLException {
+        String sql = "DELETE FROM donor WHERE donor_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        int resultSet = preparedStatement.executeUpdate();
+        return resultSet == 1;
+    }
 }
