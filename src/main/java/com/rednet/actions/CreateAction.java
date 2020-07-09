@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rednet.dao.DonorDAO;
 import com.rednet.dao.SocietyAdminDAO;
 import com.rednet.dao.SocietyDAO;
+import com.rednet.dao.SocietyRequestDAO;
 import com.rednet.entities.Donor;
 import com.rednet.entities.Person;
 import java.sql.Date;
@@ -56,8 +57,8 @@ public class CreateAction extends ActionSupport {
         }
         else if(Type == 3) //society Request
         {
-            SocietyDAO societyDAO = new SocietyDAO();
-            societyDAO.createSocietyRequest(SocietyName, SocietyDescription, person);
+            SocietyRequestDAO societyRequestDAO = new SocietyRequestDAO();
+            societyRequestDAO.createSocietyRequest(SocietyName, SocietyDescription, person);
         }
         return SUCCESS;
     }

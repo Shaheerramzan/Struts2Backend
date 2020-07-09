@@ -79,11 +79,7 @@ public class SocietyDAO {
         ps.setString(1, societyName);
         ps.setInt(2, personId);
 
-        if(ps.executeUpdate() >= 1)
-        {
-            return true;
-        }
-        return false;
+        return ps.executeUpdate() >= 1;
     }
 
 
