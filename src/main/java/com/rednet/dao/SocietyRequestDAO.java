@@ -38,6 +38,21 @@ public class SocietyRequestDAO {
         societyRequests.setPersonByHeadId(person);
     }
 
+    public boolean createSocietyRequest(String SocietyName, String SocietyDescription, Person person) throws SQLException, ClassNotFoundException
+    {
+        String sql = "INSERT INTO rednet.society_request(rednet.society_request.name, rednet.society_request.description, rednet.society_request.head_id) VALUES (?, ?, ?)";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, SocietyName);
+        preparedStatement.setString(2, SocietyDescription);
+        preparedStatement.setInt(3, person.getPersonId());
+        if(preparedStatement.executeUpdate() >= 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public ArrayList<SocietyRequest> getSocietiesRequests() throws SQLException, ClassNotFoundException {
         ArrayList<SocietyRequest> societyRequests = new ArrayList<SocietyRequest>();
         String sql = "SELECT * FROM rednet.society_request sr, person p WHERE sr.head_id = p.person_id";
