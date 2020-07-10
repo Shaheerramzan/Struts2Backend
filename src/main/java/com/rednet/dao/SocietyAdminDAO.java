@@ -105,4 +105,12 @@ public class SocietyAdminDAO {
         return false;
     }
 
+    public boolean deleteSocietyAdmin(int id) throws SQLException {
+        String sql = "DELETE FROM society_admin WHERE society_admin_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        int resultSet = preparedStatement.executeUpdate();
+        return resultSet == 1;
+    }
+
 }

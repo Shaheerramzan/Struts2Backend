@@ -46,11 +46,7 @@ public class SocietyRequestDAO {
         preparedStatement.setString(1, SocietyName);
         preparedStatement.setString(2, SocietyDescription);
         preparedStatement.setInt(3, person.getPersonId());
-        if(preparedStatement.executeUpdate() >= 1)
-        {
-            return true;
-        }
-        return false;
+        return preparedStatement.executeUpdate() >= 1;
     }
 
     public ArrayList<SocietyRequest> getSocietiesRequests() throws SQLException, ClassNotFoundException {
@@ -87,6 +83,14 @@ public class SocietyRequestDAO {
         }
        return null;
 
+    }
+
+    public boolean deleteSocietyRequest(int id) throws SQLException {
+        String sql = "DELETE FROM society_request WHERE society_request_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        int resultSet = preparedStatement.executeUpdate();
+        return resultSet == 1;
     }
 
 
