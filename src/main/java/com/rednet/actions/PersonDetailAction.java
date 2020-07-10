@@ -23,10 +23,6 @@ public class PersonDetailAction extends ActionSupport {
     public String maleRadioButton;
     public String femaleRadioButton;
 
-
-
-
-
     @Override
     public String execute() throws Exception {
         String result = ERROR;
