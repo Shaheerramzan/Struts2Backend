@@ -103,4 +103,41 @@ public class DonorDAO {
         }
         return donor;
     }
+
+    public List<Donor> getDonorsByBloodGroup(String bloodgroup) throws SQLException, ClassNotFoundException {
+        List<Donor> donors = new ArrayList<Donor>();
+
+
+        String sql = "SELECT * FROM donor d, person p WHERE d.person_id = p.person_id AND p.blood_group = ? AND" +
+                " d.is_busy = false AND d.system_mute = false";
+        createConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, bloodgroup);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Donor donor = new Donor();
+            Person person = new Person();
+            person.setPersonId(resultSet.getInt("p.person_id"));
+            person.setUsername(resultSet.getString("username"));
+            person.setFirstName(resultSet.getString("first_name"));
+            person.setLastName(resultSet.getString("last_name"));
+            person.setEmail(resultSet.getString("email"));
+            person.setGender(resultSet.getString("gender"));
+            person.setBloodGroup(resultSet.getString("blood_group"));
+            person.setLatitude(resultSet.getDouble("latitude"));
+            person.setLongitude(resultSet.getDouble("longitude"));
+            person.setPhone1(resultSet.getString("phone1"));
+            person.setCity(resultSet.getString("city"));
+            person.setArea(resultSet.getString("area"));
+            donor.setPersonId(person);
+            donor.setDonorId(resultSet.getInt("donor_id"));
+            donor.setSystemMute(resultSet.getByte("system_mute"));
+            donor.setIsBusy(resultSet.getByte("is_busy"));
+            donor.setLastDonatedDate(resultSet.getDate("last_donated_date"));
+            donors.add(donor);
+        }
+        return donors;
+    }
 }

@@ -12,6 +12,21 @@ public class PersonDetailAction extends ActionSupport {
     public Person person;
     public Integer Id;
 
+
+    public String userName;
+    public String phoneNo;
+    public String password1;
+    public String bloodDonorRB;
+    public String ConveyanceVolunteerRB;
+    public String genderSelected;
+    public String selectedBloodGroup;
+    public String maleRadioButton;
+    public String femaleRadioButton;
+
+
+
+
+
     @Override
     public String execute() throws Exception {
         String result = ERROR;
@@ -27,6 +42,10 @@ public class PersonDetailAction extends ActionSupport {
         }
 
         return result;
+    }
+
+    public String create_mobile_user() throws Exception {
+        return SUCCESS;
     }
 
     public void setPerson(Person person) {
